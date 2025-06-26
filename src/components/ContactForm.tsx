@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,9 +6,28 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 
+interface FormData {
+  name: string;
+  phone: string;
+  service: string;
+  preferredDate: string;
+  preferredTime: string;
+  message: string;
+  terms: boolean;
+}
+
+interface FormErrors {
+  name?: string;
+  phone?: string;
+  service?: string;
+  preferredDate?: string;
+  preferredTime?: string;
+  terms?: string;
+}
+
 const ContactForm = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     service: '',
@@ -18,7 +36,7 @@ const ContactForm = () => {
     message: '',
     terms: false
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const services = [
     'Manicure',
@@ -40,7 +58,7 @@ const ContactForm = () => {
   ];
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
@@ -86,7 +104,7 @@ const ContactForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validateForm()) {
@@ -109,10 +127,10 @@ const ContactForm = () => {
     }
   };
 
-  const handleChange = (field, value) => {
+  const handleChange = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
-    if (errors[field]) {
+    if (errors[field as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
@@ -230,7 +248,7 @@ const ContactForm = () => {
               <Checkbox
                 id="terms"
                 checked={formData.terms}
-                onCheckedChange={(checked) => handleChange('terms', checked)}
+                onCheckedChange={(checked) => handleChange('terms', checked as boolean)}
                 className="mt-1"
               />
               <Label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
