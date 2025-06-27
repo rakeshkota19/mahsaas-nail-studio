@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Image } from 'lucide-react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const galleryImages = [
@@ -16,6 +16,7 @@ const galleryImages = [
 
 const ImageGallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({});
 
   const openLightbox = (index: number) => {
     setSelectedImage(index);
@@ -35,6 +36,49 @@ const ImageGallery = () => {
     }
   };
 
+  const handleImageError = (index: number) => {
+    console.log(`Image failed to load at index ${index}`);
+    setImageErrors(prev => ({...prev, [index]: true}));
+  };
+
+  const handleImageLoad = (index: number) => {
+    console.log(`Image loaded successfully at index ${index}`);
+  };
+
+  const ImageComponent = ({ src, alt, className, index, onClick }: {
+    src: string;
+    alt: string;
+    className: string;
+    index: number;
+    onClick: () => void;
+  }) => {
+    if (imageErrors[index]) {
+      return (
+        <div 
+          className={`${className} bg-gray-200 flex items-center justify-center cursor-pointer`}
+          onClick={onClick}
+        >
+          <div className="text-center text-gray-500">
+            <Image className="w-12 h-12 mx-auto mb-2" />
+            <p className="text-sm">Image unavailable</p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        loading="lazy"
+        onError={() => handleImageError(index)}
+        onLoad={() => handleImageLoad(index)}
+        onClick={onClick}
+      />
+    );
+  };
+
   return (
     <section id="gallery" className="py-20 bg-gray-50">
       <div className="container-custom">
@@ -50,103 +94,87 @@ const ImageGallery = () => {
         {/* Indian-style asymmetric grid layout */}
         <div className="grid grid-cols-12 gap-4 max-w-6xl mx-auto">
           {/* Large feature image */}
-          <div
-            className="col-span-12 md:col-span-6 lg:col-span-5 row-span-2 aspect-[4/5] overflow-hidden rounded-xl cursor-pointer group shadow-lg"
-            onClick={() => openLightbox(0)}
-          >
-            <img
+          <div className="col-span-12 md:col-span-6 lg:col-span-5 row-span-2 aspect-[4/5] overflow-hidden rounded-xl cursor-pointer group shadow-lg">
+            <ImageComponent
               src={galleryImages[0]}
               alt="Featured nail art"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={0}
+              onClick={() => openLightbox(0)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
 
           {/* Medium images */}
-          <div
-            className="col-span-6 md:col-span-3 lg:col-span-4 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
-            onClick={() => openLightbox(1)}
-          >
-            <img
+          <div className="col-span-6 md:col-span-3 lg:col-span-4 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
+            <ImageComponent
               src={galleryImages[1]}
               alt="Nail art gallery"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={1}
+              onClick={() => openLightbox(1)}
             />
           </div>
 
-          <div
-            className="col-span-6 md:col-span-3 lg:col-span-3 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
-            onClick={() => openLightbox(2)}
-          >
-            <img
+          <div className="col-span-6 md:col-span-3 lg:col-span-3 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
+            <ImageComponent
               src={galleryImages[2]}
               alt="Nail art gallery"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={2}
+              onClick={() => openLightbox(2)}
             />
           </div>
 
           {/* Small images row */}
-          <div
-            className="col-span-4 md:col-span-2 lg:col-span-2 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
-            onClick={() => openLightbox(3)}
-          >
-            <img
+          <div className="col-span-4 md:col-span-2 lg:col-span-2 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
+            <ImageComponent
               src={galleryImages[3]}
               alt="Nail art gallery"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={3}
+              onClick={() => openLightbox(3)}
             />
           </div>
 
-          <div
-            className="col-span-4 md:col-span-2 lg:col-span-3 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
-            onClick={() => openLightbox(4)}
-          >
-            <img
+          <div className="col-span-4 md:col-span-2 lg:col-span-3 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
+            <ImageComponent
               src={galleryImages[4]}
               alt="Nail art gallery"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={4}
+              onClick={() => openLightbox(4)}
             />
           </div>
 
-          <div
-            className="col-span-4 md:col-span-2 lg:col-span-2 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
-            onClick={() => openLightbox(5)}
-          >
-            <img
+          <div className="col-span-4 md:col-span-2 lg:col-span-2 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
+            <ImageComponent
               src={galleryImages[5]}
               alt="Nail art gallery"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={5}
+              onClick={() => openLightbox(5)}
             />
           </div>
 
           {/* Bottom row */}
-          <div
-            className="col-span-6 md:col-span-4 lg:col-span-4 aspect-[3/2] overflow-hidden rounded-xl cursor-pointer group shadow-md"
-            onClick={() => openLightbox(6)}
-          >
-            <img
+          <div className="col-span-6 md:col-span-4 lg:col-span-4 aspect-[3/2] overflow-hidden rounded-xl cursor-pointer group shadow-md">
+            <ImageComponent
               src={galleryImages[6]}
               alt="Nail art gallery"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={6}
+              onClick={() => openLightbox(6)}
             />
           </div>
 
-          <div
-            className="col-span-6 md:col-span-4 lg:col-span-5 aspect-[3/2] overflow-hidden rounded-xl cursor-pointer group shadow-md"
-            onClick={() => openLightbox(7)}
-          >
-            <img
+          <div className="col-span-6 md:col-span-4 lg:col-span-5 aspect-[3/2] overflow-hidden rounded-xl cursor-pointer group shadow-md">
+            <ImageComponent
               src={galleryImages[7]}
               alt="Nail art gallery"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
+              index={7}
+              onClick={() => openLightbox(7)}
             />
           </div>
         </div>
@@ -178,11 +206,21 @@ const ImageGallery = () => {
                 <ChevronRight className="w-6 h-6" />
               </button>
               
-              <img
-                src={galleryImages[selectedImage]}
-                alt={`Nail art ${selectedImage + 1}`}
-                className="w-full h-auto max-h-[80vh] object-contain"
-              />
+              {imageErrors[selectedImage] ? (
+                <div className="w-full h-[60vh] bg-gray-200 flex items-center justify-center">
+                  <div className="text-center text-gray-500">
+                    <Image className="w-16 h-16 mx-auto mb-4" />
+                    <p>Image unavailable</p>
+                  </div>
+                </div>
+              ) : (
+                <img
+                  src={galleryImages[selectedImage]}
+                  alt={`Nail art ${selectedImage + 1}`}
+                  className="w-full h-auto max-h-[80vh] object-contain"
+                  onError={() => handleImageError(selectedImage)}
+                />
+              )}
             </div>
           )}
         </DialogContent>

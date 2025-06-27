@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from 'lucide-react';
@@ -18,7 +17,7 @@ const Header = () => {
     { label: 'Home', id: 'home' },
     { label: 'About', id: 'about' },
     { label: 'Gallery', id: 'gallery' },
-    { label: 'Services', id: 'services' },
+    { label: 'Services', id: 'features' }, // Changed from 'services' to 'features'
     { label: 'Contact', id: 'contact' }
   ];
 
