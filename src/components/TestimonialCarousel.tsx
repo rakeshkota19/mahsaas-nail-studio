@@ -7,21 +7,18 @@ const testimonials = [
   {
     name: "Priya S.",
     text: "We dare you to find a better review! Mahsaa's attention to detail is incredible. My nails have never looked better!",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+    rating: 5
   },
   {
     name: "Happy Bride",
     text: "Another set, another smile. Perfect bridal nails for my wedding day. Thank you for making my special day even more beautiful!",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
     year: "2024"
   },
   {
     name: "Sneha M.",
     text: "The hygiene standards are exceptional and the nail art is absolutely stunning. I'm a regular customer now!",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+    rating: 5
   }
 ];
 
@@ -58,20 +55,15 @@ const TestimonialCarousel = () => {
           <Card className="border-0 shadow-lg">
             <CardContent className="p-12 text-center">
               <div className="mb-8">
-                <img
-                  src={testimonials[currentIndex].image}
-                  alt={testimonials[currentIndex].name}
-                  className="w-20 h-20 rounded-full mx-auto mb-6 object-cover"
-                />
                 <div className="flex justify-center mb-6">
                   {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
                   ))}
                 </div>
                 <blockquote className="text-xl md:text-2xl font-light text-gray-900 mb-6 leading-relaxed">
                   "{testimonials[currentIndex].text}"
                 </blockquote>
-                <div className="text-pastel-pink font-medium">
+                <div className="text-pastel-pink font-medium text-lg">
                   — {testimonials[currentIndex].name}
                   {testimonials[currentIndex].year && ` (${testimonials[currentIndex].year})`}
                 </div>

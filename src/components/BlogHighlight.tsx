@@ -14,13 +14,13 @@ const blogPosts = [
   {
     title: "Nail Care Tips for Healthy Growth",
     excerpt: "Expert advice on maintaining strong, healthy nails between salon visits.",
-    image: "https://images.unsplash.com/photo-1610992015762-45dca7656d93?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1515688594390-b649af70d282?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
     readTime: "5 min read"
   },
   {
     title: "Bridal Nail Art Inspiration",
     excerpt: "Elegant and timeless nail designs perfect for your special day.",
-    image: "https://images.unsplash.com/photo-1515688594390-b649af70d282?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1610992015762-45dca7656d93?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
     readTime: "4 min read"
   }
 ];
@@ -62,10 +62,17 @@ const BlogHighlight = () => {
                     src={post.image}
                     alt={post.title}
                     className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+                    loading="lazy"
+                    onError={(e) => {
+                      // Fallback image if the original fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://images.unsplash.com/photo-1599948121462-8d7b57ddf4d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+                    }}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 <CardContent className="p-6">
-                  <div className="text-sm text-pastel-pink mb-2">{post.readTime}</div>
+                  <div className="text-sm text-pastel-pink mb-2 font-medium">{post.readTime}</div>
                   <h3 className="text-xl font-medium text-gray-900 mb-3 line-clamp-2">
                     {post.title}
                   </h3>

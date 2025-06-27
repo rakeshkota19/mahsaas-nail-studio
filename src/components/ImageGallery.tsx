@@ -36,7 +36,7 @@ const ImageGallery = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="gallery" className="py-20 bg-gray-50">
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
@@ -47,23 +47,108 @@ const ImageGallery = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {galleryImages.map((image, index) => (
-            <div
-              key={index}
-              className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group"
-              onClick={() => openLightbox(index)}
-            >
-              <img
-                src={image}
-                alt={`Nail art gallery ${index + 1}`}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="text-white text-sm font-medium">View</div>
-              </div>
-            </div>
-          ))}
+        {/* Indian-style asymmetric grid layout */}
+        <div className="grid grid-cols-12 gap-4 max-w-6xl mx-auto">
+          {/* Large feature image */}
+          <div
+            className="col-span-12 md:col-span-6 lg:col-span-5 row-span-2 aspect-[4/5] overflow-hidden rounded-xl cursor-pointer group shadow-lg"
+            onClick={() => openLightbox(0)}
+          >
+            <img
+              src={galleryImages[0]}
+              alt="Featured nail art"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          {/* Medium images */}
+          <div
+            className="col-span-6 md:col-span-3 lg:col-span-4 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
+            onClick={() => openLightbox(1)}
+          >
+            <img
+              src={galleryImages[1]}
+              alt="Nail art gallery"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          <div
+            className="col-span-6 md:col-span-3 lg:col-span-3 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
+            onClick={() => openLightbox(2)}
+          >
+            <img
+              src={galleryImages[2]}
+              alt="Nail art gallery"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          {/* Small images row */}
+          <div
+            className="col-span-4 md:col-span-2 lg:col-span-2 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
+            onClick={() => openLightbox(3)}
+          >
+            <img
+              src={galleryImages[3]}
+              alt="Nail art gallery"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          <div
+            className="col-span-4 md:col-span-2 lg:col-span-3 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
+            onClick={() => openLightbox(4)}
+          >
+            <img
+              src={galleryImages[4]}
+              alt="Nail art gallery"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          <div
+            className="col-span-4 md:col-span-2 lg:col-span-2 aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md"
+            onClick={() => openLightbox(5)}
+          >
+            <img
+              src={galleryImages[5]}
+              alt="Nail art gallery"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          {/* Bottom row */}
+          <div
+            className="col-span-6 md:col-span-4 lg:col-span-4 aspect-[3/2] overflow-hidden rounded-xl cursor-pointer group shadow-md"
+            onClick={() => openLightbox(6)}
+          >
+            <img
+              src={galleryImages[6]}
+              alt="Nail art gallery"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+
+          <div
+            className="col-span-6 md:col-span-4 lg:col-span-5 aspect-[3/2] overflow-hidden rounded-xl cursor-pointer group shadow-md"
+            onClick={() => openLightbox(7)}
+          >
+            <img
+              src={galleryImages[7]}
+              alt="Nail art gallery"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
       
