@@ -1,7 +1,6 @@
-
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from 'lucide-react';
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,18 +8,18 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
     }
     setIsMenuOpen(false);
   };
 
   const menuItems = [
-    { label: 'Home', id: 'home' },
-    { label: 'About', id: 'about' },
-    { label: 'Gallery', id: 'gallery' },
-    { label: 'Services', id: 'features' },
-    { label: 'Franchise Model', id: 'franchise' },
-    { label: 'Contact', id: 'contact' }
+    { label: "Home", id: "home" },
+    { label: "About", id: "about" },
+    { label: "Gallery", id: "gallery" },
+    { label: "Services", id: "feature" },
+    { label: "Franchise Model", id: "franchise" },
+    { label: "Contact", id: "contact" },
   ];
 
   return (
@@ -30,7 +29,8 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <h1 className="text-2xl font-light text-gray-900">
-              Nails by <span className="text-pastel-pink font-medium">Mahsaa</span>
+              Nails by{" "}
+              <span className="text-pastel-pink font-medium">Mahsaa</span>
             </h1>
           </div>
 
@@ -49,8 +49,8 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button 
-              onClick={() => scrollToSection('contact')}
+            <Button
+              onClick={() => scrollToSection("contact")}
               className="bg-pastel-pink hover:bg-pastel-pink/90 text-gray-900 font-medium px-6 py-2 rounded-full transition-all duration-300 hover:scale-105"
             >
               Book Now
@@ -62,7 +62,11 @@ const Header = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-gray-700 hover:text-pastel-pink transition-colors"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
 
@@ -80,8 +84,8 @@ const Header = () => {
                 </button>
               ))}
               <div className="px-4 pt-2">
-                <Button 
-                  onClick={() => scrollToSection('contact')}
+                <Button
+                  onClick={() => scrollToSection("contact")}
                   className="w-full bg-pastel-pink hover:bg-pastel-pink/90 text-gray-900 font-medium py-2 rounded-full"
                 >
                   Book Now

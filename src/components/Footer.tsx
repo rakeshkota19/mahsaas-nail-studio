@@ -1,28 +1,25 @@
-
-import { Instagram } from 'lucide-react';
+import { Instagram } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    'Quick Links': [
-      { name: 'About', href: '#about' },
-      { name: 'Services', href: '#services' },
-      { name: 'Gallery', href: '#gallery' },
-      { name: 'Testimonials', href: '#testimonials' }
+    "Quick Links": [
+      { name: "About", href: "#about" },
+      { name: "Services", href: "#services" },
+      { name: "Gallery", href: "#gallery" },
+      { name: "Testimonials", href: "#testimonials" },
     ],
-    'Services': [
-      { name: 'Manicure & Pedicure', href: '#contact' },
-      { name: 'Nail Extensions', href: '#contact' },
-      { name: 'Nail Art', href: '#contact' },
-      { name: 'Bridal Package', href: '#contact' }
+    Services: [
+      { name: "Manicure & Pedicure", href: "#contact" },
+      { name: "Nail Extensions", href: "#contact" },
+      { name: "Nail Art", href: "#contact" },
+      { name: "Bridal Package", href: "#contact" },
     ],
-    'Contact': [
-      { name: 'Book Appointment', href: '#contact' },
-      { name: 'Contact Us', href: '#contact' },
-      { name: 'Location', href: '#contact' },
-      { name: 'Blog', href: '#blog' }
-    ]
+    Contact: [
+      { name: "Book Appointment", href: "#contact" },
+      { name: "Contact Us", href: "#contact" },
+    ],
   };
 
   return (
@@ -33,8 +30,8 @@ const Footer = () => {
           <div className="md:col-span-1">
             <h3 className="text-2xl font-light mb-4">Nails by Mahsaa</h3>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Luxury nail care in the heart of Kothapet, Hyderabad. 
-              Your beauty, our passion.
+              Luxury nail care in the heart of Kothapet, Hyderabad. Your beauty,
+              our passion.
             </p>
             <div className="flex space-x-4">
               <a
@@ -48,7 +45,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          
+
           {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
@@ -68,17 +65,23 @@ const Footer = () => {
             </div>
           ))}
         </div>
-        
+
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
             © {currentYear} Nails by Mahsaa. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <a href="#" className="text-gray-400 hover:text-pastel-pink transition-colors duration-300">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-pastel-pink transition-colors duration-300"
+            >
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-400 hover:text-pastel-pink transition-colors duration-300">
+            <a
+              href="#"
+              className="text-gray-400 hover:text-pastel-pink transition-colors duration-300"
+            >
               Terms & Conditions
             </a>
           </div>
