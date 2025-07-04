@@ -1,4 +1,4 @@
-import { Instagram } from "lucide-react";
+import { Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -6,7 +6,7 @@ const Footer = () => {
   const footerLinks = {
     "Quick Links": [
       { name: "About", href: "#about" },
-      { name: "Services", href: "#services" },
+      { name: "Services", href: "#feature" },
       { name: "Gallery", href: "#gallery" },
       { name: "Testimonials", href: "#testimonials" },
     ],
@@ -43,6 +43,15 @@ const Footer = () => {
               >
                 <Instagram className="w-5 h-5" />
               </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61575053222915"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-gray-800 rounded-full hover:bg-pastel-pink hover:text-gray-900 transition-colors duration-300 focus:ring-2 focus:ring-pastel-pink/50"
+                aria-label="Follow us on Facebook"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
@@ -70,20 +79,6 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
             © {currentYear} Nails by Mahsaa. All rights reserved.
-          </div>
-          <div className="flex space-x-6 text-sm">
-            <a
-              href="#"
-              className="text-gray-400 hover:text-pastel-pink transition-colors duration-300"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-pastel-pink transition-colors duration-300"
-            >
-              Terms & Conditions
-            </a>
           </div>
         </div>
       </div>

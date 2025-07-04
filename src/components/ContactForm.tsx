@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,121 +28,187 @@ interface FormErrors {
 const ContactForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    phone: '',
-    service: '',
-    preferredDate: '',
-    preferredTime: '',
-    message: '',
-    terms: false
+    name: "",
+    phone: "",
+    service: "",
+    preferredDate: "",
+    preferredTime: "",
+    message: "",
+    terms: false,
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const services = [
-    'Manicure',
-    'Pedicure',
-    'Nail Extensions',
-    'Gel Polish',
-    'Nail Art',
-    'Chrome Finish',
-    'Bridal Package',
-    'Other'
+    "Manicure",
+    "Pedicure",
+    "Nail Extensions",
+    "Gel Polish",
+    "Nail Art",
+    "Chrome Finish",
+    "Bridal Package",
+    "Other",
   ];
 
   const timeSlots = [
-    '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM',
-    '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
-    '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM',
-    '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM',
-    '7:00 PM', '7:30 PM', '8:00 PM'
+    "11:00 AM",
+    "11:30 AM",
+    "12:00 PM",
+    "12:30 PM",
+    "1:00 PM",
+    "1:30 PM",
+    "2:00 PM",
+    "2:30 PM",
+    "3:00 PM",
+    "3:30 PM",
+    "4:00 PM",
+    "4:30 PM",
+    "5:00 PM",
+    "5:30 PM",
+    "6:00 PM",
+    "6:30 PM",
+    "7:00 PM",
+    "7:30 PM",
+    "8:00 PM",
   ];
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Name is required";
     }
 
-    const phoneRegex = /^\+91[6-9]\d{9}$/;
+    // Accepts +91XXXXXXXXXX or 10-digit Indian numbers, or numbers with dashes/spaces
+    const phoneRegex =
+      /^(\+91[6-9]\d{9}|[6-9]\d{9}|\d{3}[- ]?\d{3}[- ]?\d{4})$/;
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = "Phone number is required";
     } else if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid Indian phone number (+91XXXXXXXXXX)';
+      newErrors.phone =
+        "Please enter a valid phone number (e.g. +91XXXXXXXXXX or 9876543210)";
     }
 
     if (!formData.service) {
-      newErrors.service = 'Please select a service';
+      newErrors.service = "Please select a service";
     }
 
     if (!formData.preferredDate) {
-      newErrors.preferredDate = 'Preferred date is required';
+      newErrors.preferredDate = "Preferred date is required";
     } else {
       const selectedDate = new Date(formData.preferredDate);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
       if (selectedDate < today) {
-        newErrors.preferredDate = 'Date cannot be in the past';
+        newErrors.preferredDate = "Date cannot be in the past";
       }
-      
-      // Check if it's Sunday (0 = Sunday)
       if (selectedDate.getDay() === 0) {
-        newErrors.preferredDate = 'We are closed on Sundays';
+        newErrors.preferredDate = "We are closed on Sundays";
       }
     }
 
+    // Accept 24-hour format (e.g. 14:00)
+    const time24Regex = /^([01]?\d|2[0-3]):[0-5]\d$/;
     if (!formData.preferredTime) {
-      newErrors.preferredTime = 'Preferred time is required';
+      newErrors.preferredTime = "Preferred time is required";
+    } else if (!time24Regex.test(formData.preferredTime)) {
+      newErrors.preferredTime =
+        "Please enter time in 24-hour format (e.g. 14:00)";
     }
 
     if (!formData.terms) {
-      newErrors.terms = 'You must accept the terms and conditions';
+      newErrors.terms = "You must accept the terms and conditions";
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setApiError(null);
+
     if (validateForm()) {
-      toast({
-        title: "Booking request sent!",
-        description: "We'll contact you soon to confirm your appointment.",
-      });
-      
-      // Reset form
-      setFormData({
-        name: '',
-        phone: '',
-        service: '',
-        preferredDate: '',
-        preferredTime: '',
-        message: '',
-        terms: false
-      });
-      setErrors({});
+      setSubmitting(true);
+      try {
+        const response = await fetch(
+          "https://a5s72ir5ai52papc5xi5rqstjm0jbeof.lambda-url.ap-southeast-2.on.aws/",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: formData.name,
+              phone: formData.phone,
+              service: formData.service,
+              preferredDate: formData.preferredDate,
+              preferredTime: formData.preferredTime,
+              message: formData.message,
+              terms: formData.terms,
+            }),
+          }
+        );
+        if (!response.ok) {
+          let errorMsg = "Failed to send booking request.";
+          try {
+            const data = await response.json();
+            if (data && data.error) errorMsg = data.error;
+          } catch {
+            /* ignore JSON parse errors */
+          }
+          setApiError(errorMsg);
+          toast({
+            title: "Error",
+            description: errorMsg,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Booking request sent!",
+            description: "We'll contact you soon to confirm your appointment.",
+          });
+          setFormData({
+            name: "",
+            phone: "",
+            service: "",
+            preferredDate: "",
+            preferredTime: "",
+            message: "",
+            terms: false,
+          });
+          setErrors({});
+        }
+      } catch (err) {
+        setApiError("Network error. Please try again.");
+        toast({
+          title: "Error",
+          description: "Network error. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setSubmitting(false);
+      }
     }
   };
 
   const handleChange = (field: keyof FormData, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
   const isFormValid = () => {
-    return formData.name.trim() &&
-           formData.phone.trim() &&
-           formData.service &&
-           formData.preferredDate &&
-           formData.preferredTime &&
-           formData.terms &&
-           Object.keys(errors).length === 0;
+    return (
+      formData.name.trim() &&
+      formData.phone.trim() &&
+      formData.service &&
+      formData.preferredDate &&
+      formData.preferredTime &&
+      formData.terms &&
+      Object.keys(errors).length === 0
+    );
   };
 
   return (
@@ -153,10 +219,11 @@ const ContactForm = () => {
             Book Your Appointment
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Ready to treat yourself? Fill out the form below and we'll get back to you soon.
+            Ready to treat yourself? Fill out the form below and we'll get back
+            to you soon.
           </p>
         </div>
-        
+
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
@@ -165,42 +232,50 @@ const ContactForm = () => {
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
+                  onChange={(e) => handleChange("name", e.target.value)}
                   className="mt-2"
                   placeholder="Enter your full name"
                 />
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                )}
               </div>
-              
+
               <div>
                 <Label htmlFor="phone">Phone Number *</Label>
                 <Input
                   id="phone"
                   value={formData.phone}
-                  onChange={(e) => handleChange('phone', e.target.value)}
+                  onChange={(e) => handleChange("phone", e.target.value)}
                   className="mt-2"
                   placeholder="+91 98765 43210"
                 />
-                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                )}
               </div>
             </div>
-            
+
             <div>
               <Label htmlFor="service">Service *</Label>
               <select
                 id="service"
                 value={formData.service}
-                onChange={(e) => handleChange('service', e.target.value)}
+                onChange={(e) => handleChange("service", e.target.value)}
                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:border-pastel-pink focus:ring-2 focus:ring-pastel-pink/20"
               >
                 <option value="">Select a service</option>
-                {services.map(service => (
-                  <option key={service} value={service}>{service}</option>
+                {services.map((service) => (
+                  <option key={service} value={service}>
+                    {service}
+                  </option>
                 ))}
               </select>
-              {errors.service && <p className="text-red-500 text-sm mt-1">{errors.service}</p>}
+              {errors.service && (
+                <p className="text-red-500 text-sm mt-1">{errors.service}</p>
+              )}
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <Label htmlFor="preferredDate">Preferred Date *</Label>
@@ -208,62 +283,85 @@ const ContactForm = () => {
                   id="preferredDate"
                   type="date"
                   value={formData.preferredDate}
-                  onChange={(e) => handleChange('preferredDate', e.target.value)}
+                  onChange={(e) =>
+                    handleChange("preferredDate", e.target.value)
+                  }
                   className="mt-2"
-                  min={new Date().toISOString().split('T')[0]}
+                  min={new Date().toISOString().split("T")[0]}
                 />
-                {errors.preferredDate && <p className="text-red-500 text-sm mt-1">{errors.preferredDate}</p>}
+                {errors.preferredDate && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.preferredDate}
+                  </p>
+                )}
               </div>
-              
+
               <div>
                 <Label htmlFor="preferredTime">Preferred Time *</Label>
-                <select
+                <Input
                   id="preferredTime"
+                  type="time"
                   value={formData.preferredTime}
-                  onChange={(e) => handleChange('preferredTime', e.target.value)}
-                  className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:border-pastel-pink focus:ring-2 focus:ring-pastel-pink/20"
-                >
-                  <option value="">Select time</option>
-                  {timeSlots.map(time => (
-                    <option key={time} value={time}>{time}</option>
-                  ))}
-                </select>
-                {errors.preferredTime && <p className="text-red-500 text-sm mt-1">{errors.preferredTime}</p>}
+                  onChange={(e) =>
+                    handleChange("preferredTime", e.target.value)
+                  }
+                  className="mt-2"
+                  step="1800" // 30 min steps
+                />
+                {errors.preferredTime && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.preferredTime}
+                  </p>
+                )}
               </div>
             </div>
-            
+
             <div>
               <Label htmlFor="message">Additional Message</Label>
               <Textarea
                 id="message"
                 value={formData.message}
-                onChange={(e) => handleChange('message', e.target.value)}
+                onChange={(e) => handleChange("message", e.target.value)}
                 className="mt-2"
                 rows={4}
                 placeholder="Any special requests or notes..."
               />
             </div>
-            
+
             <div className="flex items-start space-x-3">
               <Checkbox
                 id="terms"
                 checked={formData.terms}
-                onCheckedChange={(checked) => handleChange('terms', checked as boolean)}
+                onCheckedChange={(checked) =>
+                  handleChange("terms", checked as boolean)
+                }
                 className="mt-1"
               />
-              <Label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
-                I agree to the terms and conditions and understand that this is a booking request. 
-                Final confirmation will be provided by the salon. *
+              <Label
+                htmlFor="terms"
+                className="text-sm text-gray-600 leading-relaxed"
+              >
+                I agree to the terms and conditions and understand that this is
+                a booking request. Final confirmation will be provided by the
+                salon. *
               </Label>
             </div>
-            {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
-            
+            {errors.terms && (
+              <p className="text-red-500 text-sm">{errors.terms}</p>
+            )}
+
+            {apiError && (
+              <p className="text-red-500 text-center text-sm mb-2">
+                {apiError}
+              </p>
+            )}
+
             <Button
               type="submit"
-              disabled={!isFormValid()}
+              disabled={submitting}
               className="w-full bg-pastel-pink hover:bg-pastel-pink/90 text-gray-900 font-medium py-4 text-lg rounded-full transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 focus:ring-4 focus:ring-pastel-pink/50"
             >
-              Send Booking Request
+              {submitting ? "Sending..." : "Send Booking Request"}
             </Button>
           </form>
         </div>
