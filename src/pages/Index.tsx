@@ -6,6 +6,7 @@ import FeatureGrid from '@/components/FeatureGrid';
 import ImageGallery from '@/components/ImageGallery';
 import TestimonialCarousel from '@/components/TestimonialCarousel';
 import PromotionsSection from '@/components/PromotionsSection';
+import FranchiseSection from '@/components/FranchiseSection';
 import FAQSection from '@/components/FAQSection';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import LoyaltyGiftCard from '@/components/LoyaltyGiftCard';
@@ -24,6 +25,7 @@ const Index = () => {
       <ImageGallery />
       <TestimonialCarousel />
       <PromotionsSection />
+      <FranchiseSection />
       <FAQSection />
       <NewsletterSignup />
       <LoyaltyGiftCard />
