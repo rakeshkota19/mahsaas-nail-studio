@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { API_CONFIG, FORM_CONFIG } from "@/config/constants";
 
 interface FormData {
   name: string;
@@ -40,38 +41,8 @@ const ContactForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
-  const services = [
-    "Manicure",
-    "Pedicure",
-    "Nail Extensions",
-    "Gel Polish",
-    "Nail Art",
-    "Chrome Finish",
-    "Bridal Package",
-    "Other",
-  ];
-
-  const timeSlots = [
-    "11:00 AM",
-    "11:30 AM",
-    "12:00 PM",
-    "12:30 PM",
-    "1:00 PM",
-    "1:30 PM",
-    "2:00 PM",
-    "2:30 PM",
-    "3:00 PM",
-    "3:30 PM",
-    "4:00 PM",
-    "4:30 PM",
-    "5:00 PM",
-    "5:30 PM",
-    "6:00 PM",
-    "6:30 PM",
-    "7:00 PM",
-    "7:30 PM",
-    "8:00 PM",
-  ];
+  const services = FORM_CONFIG.SERVICES;
+  const timeSlots = FORM_CONFIG.TIME_SLOTS;
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -80,14 +51,11 @@ const ContactForm = () => {
       newErrors.name = "Name is required";
     }
 
-    // Accepts +91XXXXXXXXXX or 10-digit Indian numbers, or numbers with dashes/spaces
-    const phoneRegex =
-      /^(\+91[6-9]\d{9}|[6-9]\d{9}|\d{3}[- ]?\d{3}[- ]?\d{4})$/;
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
-    } else if (!phoneRegex.test(formData.phone)) {
+    } else if (!FORM_CONFIG.VALIDATION.PHONE_REGEX.test(formData.phone)) {
       newErrors.phone =
-        "Please enter a valid phone number (e.g. +91XXXXXXXXXX or 9876543210)";
+        "Please enter a valid phone number (e.g. +91XXXXXXXXXX or 9XXXXXXXXX)";
     }
 
     if (!formData.service) {
@@ -108,11 +76,11 @@ const ContactForm = () => {
       }
     }
 
-    // Accept 24-hour format (e.g. 14:00)
-    const time24Regex = /^([01]?\d|2[0-3]):[0-5]\d$/;
     if (!formData.preferredTime) {
       newErrors.preferredTime = "Preferred time is required";
-    } else if (!time24Regex.test(formData.preferredTime)) {
+    } else if (
+      !FORM_CONFIG.VALIDATION.TIME_24_REGEX.test(formData.preferredTime)
+    ) {
       newErrors.preferredTime =
         "Please enter time in 24-hour format (e.g. 14:00)";
     }
@@ -132,22 +100,22 @@ const ContactForm = () => {
     if (validateForm()) {
       setSubmitting(true);
       try {
-        const response = await fetch(
-          "https://a5s72ir5ai52papc5xi5rqstjm0jbeof.lambda-url.ap-southeast-2.on.aws/",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: formData.name,
-              phone: formData.phone,
-              service: formData.service,
-              preferredDate: formData.preferredDate,
-              preferredTime: formData.preferredTime,
-              message: formData.message,
-              terms: formData.terms,
-            }),
-          }
-        );
+        const response = await fetch(API_CONFIG.LAMBDA_URL, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            phone: formData.phone,
+            service: formData.service,
+            preferredDate: formData.preferredDate,
+            preferredTime: formData.preferredTime,
+            message: formData.message,
+            terms: formData.terms,
+          }),
+        });
         if (!response.ok) {
           let errorMsg = "Failed to send booking request.";
           try {
@@ -306,7 +274,9 @@ const ContactForm = () => {
                     handleChange("preferredTime", e.target.value)
                   }
                   className="mt-2"
-                  step="1800" // 30 min steps
+                  min="08:00"
+                  max="20:00"
+                  step="900" // 15 min steps
                 />
                 {errors.preferredTime && (
                   <p className="text-red-500 text-sm mt-1">

@@ -1,25 +1,9 @@
 import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { TESTIMONIALS_CONFIG, ANIMATION_CONFIG } from "@/config/constants";
 
-const testimonials = [
-  {
-    name: "Priya S.",
-    text: "We dare you to find a better review! Mahsaa's attention to detail is incredible. My nails have never looked better!",
-    rating: 5,
-  },
-  {
-    name: "Happy Bride",
-    text: "Another set, another smile. Perfect bridal nails for my wedding day. Thank you for making my special day even more beautiful!",
-    rating: 5,
-    year: "2024",
-  },
-  {
-    name: "Sneha M.",
-    text: "The hygiene standards are exceptional and the nail art is absolutely stunning. I'm a regular customer now!",
-    rating: 5,
-  },
-];
+const testimonials = TESTIMONIALS_CONFIG.TESTIMONIALS;
 
 const TestimonialCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,11 +12,17 @@ const TestimonialCarousel = () => {
   useEffect(() => {
     if (!isPaused) {
       const interval = setInterval(() => {
+        console.log(
+          "Carousel interval triggered, current index:",
+          currentIndex
+        );
         setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-      }, 5000);
-      return () => clearInterval(interval);
+      }, ANIMATION_CONFIG.CAROUSEL_INTERVAL);
+      return () => {
+        clearInterval(interval);
+      };
     }
-  }, [isPaused]);
+  }, [isPaused, currentIndex, testimonials.length]);
 
   return (
     <section id="testimonials" className="py-20 bg-white">

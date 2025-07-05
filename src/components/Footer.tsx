@@ -1,26 +1,10 @@
 import { Instagram, Facebook } from "lucide-react";
+import { FOOTER_CONFIG, CONTENT_CONFIG } from "@/config/constants";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
-    "Quick Links": [
-      { name: "About", href: "#about" },
-      { name: "Services", href: "#feature" },
-      { name: "Gallery", href: "#gallery" },
-      { name: "Testimonials", href: "#testimonials" },
-    ],
-    Services: [
-      { name: "Manicure & Pedicure", href: "#contact" },
-      { name: "Nail Extensions", href: "#contact" },
-      { name: "Nail Art", href: "#contact" },
-      { name: "Bridal Package", href: "#contact" },
-    ],
-    Contact: [
-      { name: "Book Appointment", href: "#contact" },
-      { name: "Contact Us", href: "#contact" },
-    ],
-  };
+  const footerLinks = FOOTER_CONFIG.LINKS;
 
   return (
     <footer className="bg-gray-900 text-white py-16">
@@ -28,14 +12,15 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="md:col-span-1">
-            <h3 className="text-2xl font-light mb-4">Nails by Mahsaa</h3>
+            <h3 className="text-2xl font-light mb-4">
+              Nails by {CONTENT_CONFIG.BRAND.NAME}
+            </h3>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Luxury nail care in the heart of Kothapet, Hyderabad. Your beauty,
-              our passion.
+              {CONTENT_CONFIG.BRAND.TAGLINE}
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://instagram.com/nailsalon_mahsaa"
+                href={CONTENT_CONFIG.SOCIAL_LINKS.INSTAGRAM}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-800 rounded-full hover:bg-pastel-pink hover:text-gray-900 transition-colors duration-300 focus:ring-2 focus:ring-pastel-pink/50"
@@ -44,7 +29,7 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://www.facebook.com/profile.php?id=61575053222915"
+                href={CONTENT_CONFIG.SOCIAL_LINKS.FACEBOOK}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-gray-800 rounded-full hover:bg-pastel-pink hover:text-gray-900 transition-colors duration-300 focus:ring-2 focus:ring-pastel-pink/50"
@@ -78,7 +63,8 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {currentYear} Nails by Mahsaa. All rights reserved.
+            © {currentYear} Nails by {CONTENT_CONFIG.BRAND.NAME}. All rights
+            reserved.
           </div>
         </div>
       </div>

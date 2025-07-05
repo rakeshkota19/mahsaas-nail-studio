@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { NAVIGATION_CONFIG, CONTENT_CONFIG } from "@/config/constants";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,14 +14,7 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  const menuItems = [
-    { label: "Home", id: "home" },
-    { label: "About", id: "about" },
-    { label: "Gallery", id: "gallery" },
-    { label: "Services", id: "feature" },
-    { label: "Franchise Model", id: "franchise" },
-    { label: "Contact", id: "contact" },
-  ];
+  const menuItems = NAVIGATION_CONFIG.MENU_ITEMS;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
@@ -30,7 +24,7 @@ const Header = () => {
           <div className="flex-shrink-0">
             <h1 className="text-2xl font-light text-gray-900">
               Nails by{" "}
-              <span className="text-pastel-pink font-medium">Mahsaa</span>
+              <span className="text-pastel-pink font-medium"> {CONTENT_CONFIG.BRAND.NAME}</span>
             </h1>
           </div>
 

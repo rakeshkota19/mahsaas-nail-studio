@@ -1,44 +1,21 @@
 import { Sparkles, Palette, Star, Brush, RefreshCw, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { FEATURES_CONFIG } from "@/config/constants";
 
-const features = [
-  {
-    icon: Sparkles,
-    title: "Manicure & Pedicure",
-    description:
-      "Classic care for healthy nails with premium products and meticulous attention to detail.",
-  },
-  {
-    icon: Palette,
-    title: "Nail Extensions",
-    description:
-      "Acrylic & gel extensions in any shape - from natural to dramatic, perfectly sculpted.",
-  },
-  {
-    icon: Star,
-    title: "Nail Art & Chrome",
-    description:
-      "Hand-painted designs & chrome finishes that transform your nails into works of art.",
-  },
-  {
-    icon: Brush,
-    title: "Gel Polish & Overlays",
-    description:
-      "Long-lasting colour & strength with our premium gel systems and overlays.",
-  },
-  {
-    icon: RefreshCw,
-    title: "Refills & Maintenance",
-    description:
-      "Keep your nails fresh every 2–3 weeks with professional maintenance services.",
-  },
-  {
-    icon: Heart,
-    title: "Bridal & Event Nails",
-    description:
-      "Custom looks for your special day - elegant, timeless designs that photograph beautifully.",
-  },
-];
+// Icon mapping
+const iconMap = {
+  Sparkles,
+  Palette,
+  Star,
+  Brush,
+  RefreshCw,
+  Heart,
+};
+
+const features = FEATURES_CONFIG.FEATURES.map((feature) => ({
+  ...feature,
+  icon: iconMap[feature.icon as keyof typeof iconMap],
+}));
 
 const FeatureGrid = () => {
   return (
