@@ -58,8 +58,8 @@ const TestimonialCarousel = () => {
                 </blockquote>
                 <div className="text-pastel-pink font-medium text-lg">
                   — {testimonials[currentIndex].name}
-                  {testimonials[currentIndex].year &&
-                    ` (${testimonials[currentIndex].year})`}
+                  {(testimonials[currentIndex] as any).year &&
+                    ` (${(testimonials[currentIndex] as any).year})`}
                 </div>
               </div>
             </CardContent>

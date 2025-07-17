@@ -220,3 +220,39 @@ export const GALLERY_CONFIG = {
 export const ANIMATION_CONFIG = {
   CAROUSEL_INTERVAL: 2000,
 } as const;
+
+// Health Tips Configuration
+export const HEALTH_TIPS_CONFIG = {
+  TIPS: [
+    {
+      id: 1,
+      title: "Moisturize Daily",
+      tip: "Apply cuticle oil and hand cream daily to keep nails and surrounding skin healthy and hydrated.",
+    },
+    {
+      id: 2,
+      title: "Avoid Harsh Chemicals",
+      tip: "Wear gloves when cleaning or using chemicals to protect your nails from damage and drying.",
+    },
+    {
+      id: 3,
+      title: "File Properly",
+      tip: "Always file in one direction (not back and forth) to prevent nail splitting and breakage.",
+    },
+    {
+      id: 4,
+      title: "Use Base Coat",
+      tip: "Always apply a base coat before nail polish to protect nails and prevent staining.",
+    },
+    {
+      id: 5,
+      title: "Take Breaks",
+      tip: "Give your nails a break from polish occasionally to let them breathe and recover.",
+    },
+    {
+      id: 6,
+      title: "Eat Well",
+      tip: "Include biotin, protein, and vitamins in your diet for stronger, healthier nail growth.",
+    },
+  ],
+} as const;
