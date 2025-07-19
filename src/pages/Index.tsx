@@ -13,6 +13,8 @@ import BlogHighlight from "@/components/BlogHighlight";
 import LiveInstagramFeed from "@/components/LiveInstagramFeed";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import ContactSection from "@/components/ContactSection";
+import HealthTipsSection from "@/components/HealthTipsSection";
 
 const Index = () => {
   return (
@@ -22,6 +24,7 @@ const Index = () => {
       <AboutSection />
       <FeatureGrid />
       <ImageGallery />
+      <HealthTipsSection />
       <TestimonialCarousel />
       <PromotionsSection />
       <FranchiseSection />
@@ -31,6 +34,7 @@ const Index = () => {
       {/* <BlogHighlight /> */}
       {/* <LiveInstagramFeed /> */}
       <ContactForm />
+      <ContactSection />
       <Footer />
     </div>
   );

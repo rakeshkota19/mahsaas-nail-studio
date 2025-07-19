@@ -118,11 +118,6 @@ export const FAQ_CONFIG = {
         "We recommend booking at least 2–3 days in advance, and earlier for weekends and special occasions. For bridal services, we suggest booking 1-2 weeks ahead to ensure availability.",
     },
     {
-      question: "How long do gel manicures last?",
-      answer:
-        "Our gel manicures typically last 2-3 weeks without chipping, depending on your lifestyle and nail care routine. We use premium gel systems for maximum durability and shine.",
-    },
-    {
       question: "Do you offer nail extensions?",
       answer:
         "Yes! We specialize in both acrylic and gel extensions in various shapes - from natural square to dramatic stiletto. Our extensions are sculpted to perfection and can last 3-4 weeks with proper care.",
@@ -219,4 +214,46 @@ export const GALLERY_CONFIG = {
 // Animation Configuration
 export const ANIMATION_CONFIG = {
   CAROUSEL_INTERVAL: 2000,
+} as const;
+
+// Health Tips Configuration
+export const HEALTH_TIPS_CONFIG = {
+  TIPS: [
+    {
+      id: 1,
+      title: "Moisturize Daily",
+      tip: "Apply cuticle oil and hand cream daily to keep nails and surrounding skin healthy and hydrated.",
+      image: "/src/assets/health-tips/moisturize.jpg",
+    },
+    {
+      id: 2,
+      title: "Avoid Harsh Chemicals",
+      tip: "Wear gloves when cleaning or using chemicals to protect your nails from damage and drying.",
+      image: "/src/assets/health-tips/protection.jpg",
+    },
+    {
+      id: 3,
+      title: "File Properly",
+      tip: "Always file in one direction (not back and forth) to prevent nail splitting and breakage.",
+      image: "/src/assets/health-tips/filing.jpg",
+    },
+    {
+      id: 4,
+      title: "Use Base Coat",
+      tip: "Always apply a base coat before nail polish to protect nails and prevent staining.",
+      image: "/src/assets/health-tips/basecoat.jpg",
+    },
+    {
+      id: 5,
+      title: "Take Breaks",
+      tip: "Give your nails a break from polish occasionally to let them breathe and recover.",
+      image: "/src/assets/health-tips/break.jpg",
+    },
+    {
+      id: 6,
+      title: "Eat Well",
+      tip: "Include biotin, protein, and vitamins in your diet for stronger, healthier nail growth.",
+      image: "/src/assets/health-tips/nutrition.jpg",
+    },
+  ],
 } as const;
