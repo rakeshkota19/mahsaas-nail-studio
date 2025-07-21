@@ -6,21 +6,21 @@ import useEmblaCarousel from "embla-carousel-react";
 import { HEALTH_TIPS_CONFIG, ANIMATION_CONFIG } from "@/config/constants";
 
 // Import images
-import moisturizeImg from "@/assets/health-tips/moisturize.jpg";
-import protectionImg from "@/assets/health-tips/protection.jpg";
-import filingImg from "@/assets/health-tips/filing.jpg";
-import basecoatImg from "@/assets/health-tips/basecoat.jpg";
-import breakImg from "@/assets/health-tips/break.jpg";
-import nutritionImg from "@/assets/health-tips/nutrition.jpg";
+import moisturizeImg from "../assets/health-tips/moisturize.jpeg";
+import protectionImg from "../assets/health-tips/protection.jpeg";
+import filingImg from "../assets/health-tips/filing.jpeg";
+import basecoatImg from "../assets/health-tips/basecoat.jpeg";
+import breakImg from "../assets/health-tips/break.jpeg";
+import nutritionImg from "../assets/health-tips/nutrition.jpeg";
 
-// const imageMap = {
-//   "/src/assets/health-tips/moisturize.jpg": moisturizeImg,
-//   "/src/assets/health-tips/protection.jpg": protectionImg,
-//   "/src/assets/health-tips/filing.jpg": filingImg,
-//   "/src/assets/health-tips/basecoat.jpg": basecoatImg,
-//   "/src/assets/health-tips/break.jpg": breakImg,
-//   "/src/assets/health-tips/nutrition.jpg": nutritionImg,
-// };
+const imageMap = {
+  "/src/assets/health-tips/moisturize.jpeg": moisturizeImg,
+  "/src/assets/health-tips/protection.jpeg": protectionImg,
+  "/src/assets/health-tips/filing.jpeg": filingImg,
+  "/src/assets/health-tips/basecoat.jpeg": basecoatImg,
+  "/src/assets/health-tips/break.jpeg": breakImg,
+  "/src/assets/health-tips/nutrition.jpeg": nutritionImg,
+};
 
 const healthTips = HEALTH_TIPS_CONFIG.TIPS;
 
@@ -108,7 +108,7 @@ const HealthTipsSection = () => {
                   <Card className="h-full border-0 shadow-md bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300 group overflow-hidden">
                     <div className="relative overflow-hidden">
                       <img
-                        // src={imageMap[tip.image as keyof typeof imageMap]}
+                        src={imageMap[tip.image as keyof typeof imageMap]}
                         alt={tip.title}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -136,7 +136,7 @@ const HealthTipsSection = () => {
               variant="ghost"
               size="sm"
               onClick={scrollPrev}
-              className="flex items-center gap-2 text-pastel-pink hover:text-pastel-pink/80"
+              className="flex items-center gap-2 text-pastel-pink hover:text-white hover:bg-pastel-pink/80"
             >
               <ArrowLeft className="w-4 h-4" />
               Previous
@@ -158,7 +158,7 @@ const HealthTipsSection = () => {
               variant="ghost"
               size="sm"
               onClick={scrollNext}
-              className="flex items-center gap-2 text-pastel-pink hover:text-pastel-pink/80"
+              className="flex items-center gap-2 text-pastel-pink hover:text-white hover:bg-pastel-pink/80"
             >
               Next
               <ArrowRight className="w-4 h-4" />
