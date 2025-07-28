@@ -107,10 +107,10 @@ const ImageGallery = () => {
           </p>
         </div>
 
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl w-full">
-            {/* Large feature image */}
-            <div className="sm:col-span-2 md:col-span-3 aspect-[4/5] overflow-hidden rounded-xl cursor-pointer group shadow-lg">
+        <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
+          {/* Left side - Large image */}
+          <div className="lg:w-2/3">
+            <div className="h-[80vh] overflow-hidden rounded-xl cursor-pointer group shadow-lg relative">
               <ImageComponent
                 src={galleryImages[0]}
                 alt="Featured nail art"
@@ -120,19 +120,23 @@ const ImageGallery = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
+          </div>
 
-            {/* Other images */}
-            {galleryImages.slice(1).map((img, idx) => (
-              <div key={idx + 1} className="aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
-                <ImageComponent
-                  src={img}
-                  alt="Nail art gallery"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  index={idx + 1}
-                  onClick={() => openLightbox(idx + 1)}
-                />
-              </div>
-            ))}
+          {/* Right side - Smaller images */}
+          <div className="lg:w-1/3">
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 h-[80vh] overflow-y-auto">
+              {galleryImages.slice(1).map((img, idx) => (
+                <div key={idx + 1} className="aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
+                  <ImageComponent
+                    src={img}
+                    alt="Nail art gallery"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    index={idx + 1}
+                    onClick={() => openLightbox(idx + 1)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
