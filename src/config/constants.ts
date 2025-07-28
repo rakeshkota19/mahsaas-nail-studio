@@ -223,37 +223,64 @@ export const HEALTH_TIPS_CONFIG = {
       id: 1,
       title: "Moisturize Daily",
       tip: "Apply cuticle oil and hand cream daily to keep nails and surrounding skin healthy and hydrated.",
+
       image: "/src/assets/health-tips/moisturize.jpeg",
+
+      image: "/src/assets/health-tips/moisturize.jpg",
+
     },
     {
       id: 2,
       title: "Avoid Harsh Chemicals",
       tip: "Wear gloves when cleaning or using chemicals to protect your nails from damage and drying.",
+
       image: "/src/assets/health-tips/protection.jpeg",
+
+      image: "/src/assets/health-tips/protection.jpg",
+
     },
     {
       id: 3,
       title: "File Properly",
       tip: "Always file in one direction (not back and forth) to prevent nail splitting and breakage.",
+
       image: "/src/assets/health-tips/filing.jpeg",
+
+      image: "/src/assets/health-tips/filing.jpg",
+
     },
     {
       id: 4,
       title: "Use Base Coat",
       tip: "Always apply a base coat before nail polish to protect nails and prevent staining.",
+
       image: "/src/assets/health-tips/basecoat.jpeg",
+
+      image: "/src/assets/health-tips/basecoat.jpg",
+
     },
     {
       id: 5,
       title: "Take Breaks",
       tip: "Give your nails a break from polish occasionally to let them breathe and recover.",
+
       image: "/src/assets/health-tips/break.jpeg",
+
+      image: "/src/assets/health-tips/break.jpg",
+
     },
     {
       id: 6,
       title: "Eat Well",
       tip: "Include biotin, protein, and vitamins in your diet for stronger, healthier nail growth.",
+
       image: "/src/assets/health-tips/nutrition.jpeg",
     },
   ],
 } as const;
+
+      image: "/src/assets/health-tips/nutrition.jpg",
+    },
+  ],
+} as const;
+

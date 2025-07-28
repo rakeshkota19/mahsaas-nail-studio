@@ -61,6 +61,7 @@ const ImageGallery = () => {
           </p>
         </div>
 
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
           {/* Left Large Image */}
           <div className="row-span-2">
@@ -83,6 +84,38 @@ const ImageGallery = () => {
                 index={idx + 1}
               />
             ))}
+
+        <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
+          {/* Left side - Large image */}
+          <div className="lg:w-2/3">
+            <div className="h-[80vh] overflow-hidden rounded-xl cursor-pointer group shadow-lg relative">
+              <ImageComponent
+                src={galleryImages[0]}
+                alt="Featured nail art"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                index={0}
+                onClick={() => openLightbox(0)}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+          </div>
+
+          {/* Right side - Smaller images */}
+          <div className="lg:w-1/3">
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 h-[80vh] overflow-y-auto">
+              {galleryImages.slice(1).map((img, idx) => (
+                <div key={idx + 1} className="aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
+                  <ImageComponent
+                    src={img}
+                    alt="Nail art gallery"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    index={idx + 1}
+                    onClick={() => openLightbox(idx + 1)}
+                  />
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>

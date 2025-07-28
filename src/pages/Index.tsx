@@ -7,6 +7,7 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import PromotionsSection from "@/components/PromotionsSection";
 import FranchiseSection from "@/components/FranchiseSection";
 import FAQSection from "@/components/FAQSection";
+import HealthTipsSection from "@/components/HealthTipsSection";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import LoyaltyGiftCard from "@/components/LoyaltyGiftCard";
 import BlogHighlight from "@/components/BlogHighlight";
@@ -26,6 +27,7 @@ const Index = () => {
       <ImageGallery />
       <HealthTipsSection />
       <TestimonialCarousel />
+      <HealthTipsSection />
       <PromotionsSection />
       <FranchiseSection />
       <FAQSection />
