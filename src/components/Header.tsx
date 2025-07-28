@@ -22,9 +22,12 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-light text-gray-900">
-              Nails by{" "}
-              <span className="text-pastel-pink font-medium"> {CONTENT_CONFIG.BRAND.NAME}</span>
+            <h1 className="text-2xl font-light text-red-500 logo-style">
+              Nails By{" "}
+              <span className="text-red-500 font-medium">
+                {" "}
+                {CONTENT_CONFIG.BRAND.NAME}
+              </span>
             </h1>
           </div>
 
