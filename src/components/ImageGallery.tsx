@@ -1,18 +1,22 @@
 import { useState } from "react";
-import { X, ChevronLeft, ChevronRight, Image } from "lucide-react";
+import Masonry from "react-masonry-css";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import MahsaaPoster71 from "../assets/images/Mahsaa poster 7.1.png";
-import MahsaaPoster72 from "../assets/images/Mahsaa poster 7.2.png";
-import MahsaaPoster73 from "../assets/images/Mahsaa poster 7.3.png";
-import MahsaaPoster74 from "../assets/images/Mahsaa poster 7.6.png";
-import MahsaaPoster75 from "../assets/images/Mahsaa poster 7.5.png";
+import { X, ChevronLeft, ChevronRight, Image } from "lucide-react";
+
+import MahsaaPoster71 from "../assets/images/img-3.jpeg";
+import MahsaaPoster72 from "../assets/images/img-1.jpeg";
+import MahsaaPoster73 from "../assets/images/img-2.jpeg";
+import MahsaaPoster74 from "../assets/images/img-4.jpeg";
+import MahsaaPoster75 from "../assets/images/img-5.jpeg";
+import MahsaaPoster76 from "../assets/images/img-6.jpg";
 
 const galleryImages = [
-  MahsaaPoster71, // Large Left Image
-  MahsaaPoster72, // Right top left
-  MahsaaPoster73, // Right top right
-  MahsaaPoster74, // Right bottom left
-  MahsaaPoster75, // Right bottom right
+  MahsaaPoster71,
+  MahsaaPoster72,
+  MahsaaPoster73,
+  MahsaaPoster74,
+  MahsaaPoster75,
+  MahsaaPoster76,
 ];
 
 const ImageGallery = () => {
@@ -25,8 +29,8 @@ const ImageGallery = () => {
   const navigateImage = (direction) => {
     setSelectedImage((prev) =>
       direction === "prev"
-        ? (prev === 0 ? galleryImages.length - 1 : prev - 1)
-        : (prev === galleryImages.length - 1 ? 0 : prev + 1)
+        ? prev === 0 ? galleryImages.length - 1 : prev - 1
+        : prev === galleryImages.length - 1 ? 0 : prev + 1
     );
   };
 
@@ -34,16 +38,16 @@ const ImageGallery = () => {
     setImageErrors((prev) => ({ ...prev, [index]: true }));
   };
 
-  const ImageComponent = ({ src, alt, className, index }) => (
+  const ImageComponent = ({ src, alt, index }) => (
     imageErrors[index] ? (
-      <div className={`${className} bg-gray-200 flex items-center justify-center`}>
+      <div className="bg-gray-200 flex items-center justify-center min-h-[200px] rounded-lg shadow-md">
         <Image className="w-12 h-12 text-gray-400" />
       </div>
     ) : (
       <img
         src={src}
         alt={alt}
-        className={`${className} object-cover cursor-pointer`}
+        className="cursor-pointer rounded-lg shadow-md"
         loading="lazy"
         onError={() => handleImageError(index)}
         onClick={() => openLightbox(index)}
@@ -61,66 +65,23 @@ const ImageGallery = () => {
           </p>
         </div>
 
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-          {/* Left Large Image */}
-          <div className="row-span-2">
+        <Masonry
+          breakpointCols={{ default: 3, 800: 2, 600: 1 }}
+          className="flex gap-4"
+          columnClassName="space-y-4"
+        >
+          {galleryImages.map((img, idx) => (
             <ImageComponent
-              src={galleryImages[0]}
-              alt="Gallery Large"
-              className="w-full h-full rounded-lg shadow-lg"
-              index={0}
+              key={idx}
+              src={img}
+              alt={`Gallery ${idx + 1}`}
+              index={idx}
             />
-          </div>
-
-          {/* Right Side Four Images */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-4">
-            {galleryImages.slice(1).map((img, idx) => (
-              <ImageComponent
-                key={idx + 1}
-                src={img}
-                alt={`Gallery Small ${idx + 1}`}
-                className="rounded-lg shadow-md"
-                index={idx + 1}
-              />
-            ))}
-
-        <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
-          {/* Left side - Large image */}
-          <div className="lg:w-2/3">
-            <div className="h-[80vh] overflow-hidden rounded-xl cursor-pointer group shadow-lg relative">
-              <ImageComponent
-                src={galleryImages[0]}
-                alt="Featured nail art"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                index={0}
-                onClick={() => openLightbox(0)}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </div>
-
-          {/* Right side - Smaller images */}
-          <div className="lg:w-1/3">
-            <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 h-[80vh] overflow-y-auto">
-              {galleryImages.slice(1).map((img, idx) => (
-                <div key={idx + 1} className="aspect-square overflow-hidden rounded-xl cursor-pointer group shadow-md">
-                  <ImageComponent
-                    src={img}
-                    alt="Nail art gallery"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    index={idx + 1}
-                    onClick={() => openLightbox(idx + 1)}
-                  />
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
+          ))}
+        </Masonry>
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox Dialog */}
       <Dialog open={selectedImage !== null} onOpenChange={closeLightbox}>
         <DialogContent className="max-w-4xl p-0 border-0 bg-black/90">
           {selectedImage !== null && (
