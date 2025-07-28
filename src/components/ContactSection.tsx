@@ -53,13 +53,6 @@ const ContactSection = () => {
                 </a>
               </div>
             </div>
-            <div className="mt-4 md:mt-0">
-              <img
-                src={QRCodeImage}
-                alt="WhatsApp QR Code"
-                className="w-40 h-40 object-contain"
-              />
-            </div>
           </div>
         </div>
 
