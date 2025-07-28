@@ -56,7 +56,7 @@ const ImageGallery = () => {
   );
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="gallery" className="py-20 bg-gray-50">
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">Our Work</h2>
