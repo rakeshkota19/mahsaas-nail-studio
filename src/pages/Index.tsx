@@ -26,7 +26,6 @@ const Index = () => {
       <ImageGallery />
       <HealthTipsSection />
       <TestimonialCarousel />
-      <HealthTipsSection />
       <PromotionsSection />
       <FranchiseSection />
       <FAQSection />
